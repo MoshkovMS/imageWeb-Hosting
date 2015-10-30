@@ -44,12 +44,16 @@
 	</head>
 	<body>
 		<div id = "content">
-			<iframe src = "filesUpload.php" height = "120" width = "350" scrolling = "no" id = "iFameWin">
+			<iframe src = "filesUpload.php" height = "120" width = "500" scrolling = "no" id = "iFameWin">
 			</iframe>
 			<div id = "imagesBlock">
 			</div>
 		</div>
 		<script>
+			function getSearchResult(res)
+				{
+				document.getElementById("imagesBlock").innerHTML = res;
+				}
 			function setNewImages(imagesArr)
 				{
 				document.getElementById("imagesBlock").innerHTML = '';

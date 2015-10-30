@@ -24,7 +24,7 @@
 				$adress = generateRandomString(20).'.jpg';
 				move_uploaded_file($_FILES['fileList']['tmp_name'][$i], 'images/'.$adress);
 				if($description == '')$description = 'empty';
-				mysql_query('INSERT INTO images SET link = "'.$adress.'", subscribe = '.'"'.$description.'"');
+				mysql_query('INSERT INTO images SET link = "'.$adress.'", description = '.'"'.$description.'"');
 				$imageLinks = $imageLinks.$description.'|'.$adress.'|'; 
 				}		
 			}
@@ -43,15 +43,22 @@
 				}
 		</style>
 	</head>
-	<body>
+	<body onload = "document.getElementById('imageDescription').value = '';">
 		<script>
 			function setDescription()
 					{
 					description = document.getElementById('imageDescription').value;
-					document.getElementsByTagName('form')[0].setAttribute('action', 'filesUpload.php?description='+description);
-					description = '';
+					document.getElementsByTagName('form')[0].setAttribute('action', 'filesUpload.php?description='+description);					
 					}
-			document.getElementsByTagName('body')[0].innerHTML = '<form  action = "" method = "post" enctype = "multipart/form-data"><input name = "fileList[]" type = "file" multiple = "true" min = "1" max = "10"><input type = "submit" value = "Відправити"></form>';
+			function searchImages(imDes)
+			{
+			var request = new XMLHttpRequest();	
+			request.open('GET', 'searchImages.php?description='+imDes, false);
+			request.setRequestHeader('If-Modified-Since', '0');
+			request.send(null);
+			top.getSearchResult(request.responseText);	
+			}
+			document.getElementsByTagName('body')[0].innerHTML = '<form  action = "" onmouseover = "setDescription();" method = "post" enctype = "multipart/form-data"><input name = "fileList[]" type = "file" multiple = "true" min = "1" max = "10"><input type = "submit" value = "Відправити"></form>';
 			top.getMyPhotos();		
 		</script>
 		<table>
@@ -59,11 +66,16 @@
 				<td>
 					Ваш коментар до зображення, або ключове слово пошуку:
 				</td>
+				<td>
+				</td>
 			</tr>
 			<tr>
 				<td>
-					<textarea rows = 2 cols = 44 id = "imageDescription" onkeyup = "setDescription();">
+					<textarea rows = 2 cols = 44 id = "imageDescription">
 					</textarea>
+				</td>
+				<td>
+					<input type = "button" value = "Пошук згідно опису" onclick = "searchImages(document.getElementById('imageDescription').value);">
 				</td>
 			</tr>
 		</table>
