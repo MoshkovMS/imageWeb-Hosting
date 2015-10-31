@@ -7,7 +7,7 @@
 			iframe
 				{
 				border: 0px;
-				background: #aaaaaa;
+				background: #d0f5a9;
 				margin-top: 10px;
 				margin-bottom: 10px;
 				border-radius: 5px;
@@ -26,6 +26,7 @@
 				background: #ffffff;
 				border-radius: 5px;
 				box-shadow: 0px 0px 10px 1px;
+				padding: 5px;
 				}
 			#content
 				{
@@ -39,6 +40,10 @@
 				width: 650px;
 				border-radius: 10px;
 				padding-bottom: 5px;
+				}
+			body
+				{
+				background-image: url("bodyBack.jpg");
 				}
 		</style>
 	</head>
